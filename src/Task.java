@@ -12,11 +12,11 @@ public class Task {
     private Date expirationDate;
 
 
-public Task(String task, int isDueIn){
-    this.task = task;
-    day.add(Calendar.DAY_OF_MONTH,isDueIn);
-    this.expirationDate = day.getTime();
-}
+    public Task(String task, int isDueIn){
+        this.task = task;
+        day.add(Calendar.DAY_OF_MONTH,isDueIn);
+        this.expirationDate = day.getTime();
+    }
     public Task(String task, int isDueIn, boolean isCompleted){
         this.task = task;
         day.add(Calendar.DAY_OF_MONTH,isDueIn);
@@ -24,17 +24,40 @@ public Task(String task, int isDueIn){
         this.isCompleted = isCompleted;
     }
 
+    public String getTask() {
+        return task;
+    }
+
+    public void setTask(String task) {
+        this.task = task;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
     @Override
     public String toString() {
         if (isCompleted == false) {
-            return "Task{" +
+            return
                     task + '\'' +
-                    ", task is in progress" +
-                    ", Task is due in " + expirationDate.getDay() +
-                    " days" + '}';
+                            ", is in progress" +
+                            ", due in " + expirationDate.getDay() +
+                            " days" + '}';
         } else {
-            return "Task{" +
-                    "task='" + task + '\'' +
+            return  "task '" + task + '\'' +
                     ", task completed" + '}';
         }
     }
