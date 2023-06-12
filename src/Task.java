@@ -14,8 +14,12 @@ public class Task {
 
     public Task(String task, int isDueIn){
         this.task = task;
-        day.add(Calendar.DAY_OF_MONTH,isDueIn);
-        this.expirationDate = day.getTime();
+        System.out.println(isDueIn+"es is due in");
+        Calendar Calend = java.util.Calendar.getInstance();
+        Calend.getTime();
+        Calend.add(Calendar.DAY_OF_MONTH,isDueIn);
+        this.expirationDate = Calend.getTime();
+        System.out.println(this.expirationDate+"es lo q queda");
     }
     public Task(String task, int isDueIn, boolean isCompleted){
         this.task = task;
@@ -44,8 +48,11 @@ public class Task {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
+    public void setExpirationDate() {
+        System.out.println("In how many days should the new task be accomplished?");
+        int newDueDate = sc.nextInt();
+        day.add(Calendar.DAY_OF_MONTH,newDueDate);
+        this.expirationDate = day.getTime();
     }
 
     @Override
@@ -54,7 +61,7 @@ public class Task {
             return
                     task + '\'' +
                             ", is in progress" +
-                            ", due in " + expirationDate.getDay() +
+                            ", due in " + this.expirationDate+
                             " days" + '}';
         } else {
             return  "task '" + task + '\'' +

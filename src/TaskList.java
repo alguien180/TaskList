@@ -35,12 +35,6 @@ public class TaskList {
         // Get the Task object that needs to be updated
         Task taskToUpdate = toDoItems.get(taskNumber - 1);
 
-        // Ask the user for the new daysToDoIt value
-        System.out.println("In how many days should it be completed?");
-
-
-        int newDaysToDoIt = sc.nextInt();
-
         // Update the daysToDoIt value of the Task
         taskToUpdate.setExpirationDate();
 
@@ -52,9 +46,10 @@ public class TaskList {
 
     public void addToDoItem() {
         System.out.println("What is the name of the new task?");
-        String task = sc.next();
+        sc.nextLine();
+        String task = sc.nextLine();
 
-        System.out.println("In How many days should it be completed?");
+        System.out.print("In How many days should it be completed?");
         int daysToDoIt = sc.nextInt();
 
         System.out.println("Do you want this task in a specific place?? " +
@@ -65,16 +60,18 @@ public class TaskList {
             System.out.println("Invalid input! Please enter either 0 or 1.");
             input = sc.next();
         }
+
         if (input.equals("0")) {
-            System.out.println("days to do it "+ daysToDoIt);
+
             this.toDoItems.add(new Task(task, daysToDoIt));
             System.out.println("Task added: \n");
             printList();
         } else{
-            System.out.println("days to do it "+ daysToDoIt);
+
             System.out.println("Which is its priority. Here is the current task list: \n");
             printList();
             int order = sc.nextInt();
+            sc.nextLine();
             this.toDoItems.add(order - 1, new Task(task, daysToDoIt));
             System.out.println("Task added: \n");
             printList();
@@ -86,12 +83,13 @@ public class TaskList {
                 "\n 1= enter a new value " +
                 "\n 2= delete a task" +
                 "\n 3= update a task due date" +
-                "\n 4= exit" +
+                "\n 4= Show current tasks " +
                 "\n 5= Autopopulate list"+
-                "\n 6= Show current tasks");
+                "\n 6= exit");
     }
 
-    private String inputValidator(String input) {
+    private String inputValidator() {
+        String input = sc.next();
         while (!input.equals("1") && !input.equals("2") && !input.equals("3") && !input.equals("4") && !input.equals("5")&& !input.equals("6")) {
             System.out.println("Invalid input. Please enter 1, 2, 3, 4, 5 or 6.");
             menuList();
@@ -103,41 +101,40 @@ public class TaskList {
 
     public void menu() {
         menuList();
-        String input = sc.next();
-        input = inputValidator(input);
 
-        while (!input.equals("4")) {
-            if (input.equals("1")) {
-                this.addToDoItem();
-                menuList();
-                input = sc.next();
-                input = inputValidator(input);
-            } else if (input.equals("2")) {
-                printList();
-                System.out.println("Which task number should be deleted");
-                int position = sc.nextInt();
-                this.removeToDoItem(position);
-                menuList();
-                input = sc.next();
-                input = inputValidator(input);
-            } else if (input.equals("3")) {
-                this.printList();
-                System.out.println("Which task number should be updated");
-                int position = sc.nextInt();
-                this.toDoItems.set(position-1,(this.toDoItems.set(position-1 )));
-                menuList();
-                input = sc.next();
-                input = inputValidator(input);
-            } else if (input.equals("5")) {
-                this.autoPopulate();
-                menuList();
-                input = sc.next();
-                input = inputValidator(input);
-            } else if(input.equals("6")){
-                this.printList();
-                menuList();
-                input = sc.next();
-                input = inputValidator(input);
+        String input = inputValidator();
+
+        while (!input.equals("6")) {
+            switch(input){
+                case "1":
+                    this.addToDoItem();
+                    menuList();
+                    input = inputValidator();
+                    break;
+                case "2":
+                    printList();
+                    System.out.println("Which task number should be deleted");
+                    int position = sc.nextInt();
+                    this.removeToDoItem(position);
+                    menuList();
+                    input = inputValidator();
+                    break;
+                case "3":
+                    this.printList();
+                    updateItem();
+                    menuList();
+                    input = inputValidator();
+                    break;
+                case "4":
+                    this.printList();
+                    menuList();
+                    input = inputValidator();
+                    break;
+                case "5":
+                    autoPopulate();
+                    menuList();
+                    input = inputValidator();
+                    break;
             }
         }
     }
