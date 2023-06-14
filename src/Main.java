@@ -14,6 +14,6 @@ public class Main {
     }
     ////TODO Add linkedList functionality to ask for priority
     ///TODO Finish creating the update method
-    /// TODO change al date variables to calendar type
+
 
 }

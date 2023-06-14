@@ -19,27 +19,34 @@ public class TaskList {
         this.toDoItems.add(2, new Task("Bañar al Caballo", 6, true));
     }
     public void updateItem() {
-        // Print the current task list
+        // Prints the current task list
         printList();
 
-        // Ask the user which task they want to update
+        // Asks the user which task they want to update
         System.out.println("Which task number should be updated?");
+
+        while (!sc.hasNextInt()) {
+            System.out.println("That's not a number! Please enter a task number:");
+            sc.next(); // discards the invalid input
+        }
+
         int taskNumber = sc.nextInt();
 
-        // Ensure the task number is valid
+        // Ensures that the task number is valid
         if (taskNumber < 1 || taskNumber > toDoItems.size()) {
             System.out.println("Invalid task number. No tasks were updated.");
             return;
         }
 
-        // Get the Task object that needs to be updated
+        // Gets the Task object that needs to be updated
         Task taskToUpdate = toDoItems.get(taskNumber - 1);
 
-        // Update the daysToDoIt value of the Task
+
+
+        // Updates the value of the Task
         taskToUpdate.setExpirationDate();
 
-
-        // Let the user know the task has been updated
+        // Lets the user know the task has been updated
         System.out.println("Task updated: ");
         printList();
     }
@@ -120,7 +127,7 @@ public class TaskList {
                     input = inputValidator();
                     break;
                 case "3":
-                    this.printList();
+
                     updateItem();
                     menuList();
                     input = inputValidator();
